@@ -43,7 +43,7 @@ void CALLBACK display()
     glClear(GL_COLOR_BUFFER_BIT);
     glLoadIdentity();
     glTranslatef(x, 0, 0.0);
-    glRotatef(alpha, 1, 1, 1);
+    glRotatef(alpha, 0, 1, 1);
 
     quadricObj = gluNewQuadric();
     gluQuadricDrawStyle(quadricObj, GLU_LINE);
@@ -56,6 +56,49 @@ void CALLBACK display()
     glColor3f(1.0f, 0.0f, 0.0f);
     glTranslatef(0, 10, 0);
     gluSphere(quadricObj, 30, 100, 20);
+    glPopMatrix();
+
+    //Cylinder
+
+    glPushMatrix();
+    glColor3f(0.0f, 1.0f, 0.0f);
+    glTranslatef(70, 10, 0);
+    gluCylinder(quadricObj, 20, 20, 50, 100, 20);
+    glPopMatrix();
+
+    // Cone
+    glPushMatrix();
+    glColor3f(0.5f, 1.0f, 1.0f);
+    glTranslatef(120, 10, 0);
+    gluCylinder(quadricObj, 20, 0, 50, 100, 20);
+    glPopMatrix();
+
+    // Disk with inner radius
+    glPushMatrix();
+    glColor3f(0.4f, 0.2f, 0.2f);
+    glTranslatef(160, 10, 0);
+    gluDisk(quadricObj, 10, 30, 100, 1);
+    glPopMatrix();
+
+    // Disk without inner radius
+    glPushMatrix();
+    glColor3f(0.4f, 0.2f, 0.2f);
+    glTranslatef(-160, 10, 0);
+    gluDisk(quadricObj, 0, 30, 500, 1);
+    glPopMatrix();
+
+    // Partial disk
+    glPushMatrix();
+    glColor3f(0.6f, 0.1f, 0.7f);
+    glTranslatef(-120, 10, 0);
+    gluPartialDisk(quadricObj, 10, 30, 100, 10, 0, 90);
+    glPopMatrix();
+    
+    // Partial disk v2
+    glPushMatrix();
+    glColor3f(0.1f, 0.1f, 0.1f);
+    glTranslatef(-75, 10, 0);
+    gluPartialDisk(quadricObj, 0, 30, 100, 10, 0, 90);
     glPopMatrix();
 
     glFlush();
@@ -72,10 +115,10 @@ void CALLBACK myReshape(GLsizei w, GLsizei h)
     glMatrixMode(GL_PROJECTION);
     glLoadIdentity();
     if (w <= h) {
-        glOrtho(-160.0, 160.0, 160.0 * (GLfloat)h / (GLfloat)w, -160.0 * (GLfloat)h / (GLfloat)w, -100.0, 100.0);
+        glOrtho(-160.0, 160.0, 160.0 * (GLfloat)h / (GLfloat)w, -160.0 * (GLfloat)h / (GLfloat)w, -300.0, 300.0);
     }
     else {
-        glOrtho(-160.0 * (GLfloat)w / (GLfloat)h, 160.0 * (GLfloat)w / (GLfloat)h, -160.0, 160.0, -100.0, 100.0);
+        glOrtho(-160.0 * (GLfloat)w / (GLfloat)h, 160.0 * (GLfloat)w / (GLfloat)h, -160.0, 160.0, -300.0, 300.0);
     }
     glMatrixMode(GL_MODELVIEW);
 }
